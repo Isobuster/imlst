@@ -5,10 +5,9 @@
 It is a simple text file that contains a file or physical or logical drive per line.  Paths can be absolute or relative to the position of the *.imlst file iself.
 It's an alternative for providing all files/drives on the command line, like so: https://www.isobuster.com/help/open_spanned_files_and_drives and it follows the same logic, so best check out the link.
 
-This text and link serves as specification of the format so that other applications can use it as well and in the exact same way.  This improves sharing *.imlst files between applications.
-Please stick to the same implementation or use a different file extension if you deviate from it.
+This text and link serves as specification of the format. Other applications can use it as well, in the exact same way.  To improve sharing *.imlst files between applications, please stick to the same implementation or use a different file extension if you deviate from it.
 
-The first file's extension is used by an application to determine what type file it is (if appropriate)
+The extension of the first file in the list can be used by the application that loads it to determine what type file it is.
 
 Example 1 (concatenate two drives as one) :
 

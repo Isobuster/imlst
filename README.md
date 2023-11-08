@@ -12,8 +12,8 @@ The first file's extension is used by an application to determine what type file
 
 Example 1:
 
-  \\.\\PhysicalDrive2
-  \\.\\PhysicalDrive3
+<li>\\.\\PhysicalDrive2</li>
+<li>\\.\\PhysicalDrive3</li>
 
   will concatenate two drives as one
 

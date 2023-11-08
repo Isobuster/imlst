@@ -10,31 +10,28 @@ Please stick to the same implementation or use a different file extension if you
 
 The first file's extension is used by an application to determine what type file it is (if appropriate)
 
-Example 1:
+Example 1 (concatenate two drives as one) :
 
-<li>\\.\\PhysicalDrive2</li>
-<li>\\.\\PhysicalDrive3</li>
+\\\\.\\PhysicalDrive2<br>
+\\\\.\\PhysicalDrive3
 
-  will concatenate two drives as one
+Example 2 (treat both files as one file and treat it as a *.dsk file, since that is the extension of the first file):
 
-Example 2:
-
-  c:\image file 1.dsk
-  c:\image file 2.any // comment
-
-  will treat both files as one file and will treat it as a *.dsk file, since that is the extension of the first file
+c:\image file 1.dsk<br>
+c:\image file 2.any // comment
 
 An exception to this rule (as implemented by IsoBuster) is when the first file is an *.ibp file.  See above link for more information.
-A double forward slash starts a comment, either on a new line, or behind a file/drive
+<br>A double forward slash starts a comment, either on a new line, or behind a file/drive
 
-From IsoBuster 5.3 onwards there is also support for a virtual file.  A way to insert virtual data between or before file(s).
-The syntax is simply: \\*\FileName:(-)Size:Pattern
-  FileName can be any name and must contain at least one character.  It can have a file extension, for instance *.dsk (which would help with proper detection of the image file in case it's the first file)
-  Size must be present and is the number of bytes.  It can be decimal or hexadecimal (in which case it needs to start with 0x or end with h).  If Size is negative, for instance -512, reads in that part of the file will fail with an error.
-  Pattern is a BYTE value and is optional.  Default 0x00 is used but you can specify any value, for instance 0xFF etc.
+From IsoBuster 5.3 onwards there is also support for a virtual file.  A way to insert virtual data between, after or before file(s).
+<br>The syntax is simply: \\\\*\\FileName:(-)Size:Pattern
+1. FileName can be any name and must contain at least one character.  It can have a file extension, for instance *.dsk (which would help with proper detection of the image file in case it's the first file)
+2. Size must be present and is the number of bytes.  It can be decimal or hexadecimal (in which case it needs to start with 0x or end with h).  If Size is negative, for instance -512, reads in that part of the file will fail with an error.
+3. Pattern is a BYTE value and is optional.  Default 0x00 is used but you can specify any value, for instance 0xFF etc.
 
-Example 3:
+Example 3 (an iso file is missing 100 blocks and hence all offsets are wrong, fix this by preceding it with a virtual file containing all zeroes):
 
-  \\*\.iso:2048000:0x00 // the iso file is missing 100 blocks in the beginning and hence all offsets are wrong, fix this by preceding it with a virtual file
-  c:\file.iso
+\\\\*\\.iso:2048000:0x00<br>
+c:\file.iso
+
 

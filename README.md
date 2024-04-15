@@ -22,8 +22,8 @@ c:\image file 2.any // comment
 An exception to this rule (as implemented by IsoBuster) is when the first file is an *.ibp file.  See above link for more information.
 <br>A double forward slash starts a comment, either on a new line, or behind a file/drive
 
-From IsoBuster 5.3 onwards there is also support for a virtual file.  A way to insert virtual data between, after or before file(s).
-<br>The syntax is simply: \\\\*\\FileName:(-)Size:Pattern
+From IsoBuster 5.3 onwards there is also support for a **virtual file**.  A way to insert virtual data between, after or before file(s).
+<br>The syntax is: \\\\*\\FileName:(-)Size:Pattern
 1. FileName can be any name and must contain at least one character.  It can have a file extension, for instance *.dsk (which would help with proper detection of the image file in case it's the first file)
 2. Size must be present and is the number of bytes.  It can be decimal or hexadecimal (in which case it needs to start with 0x or end with h).  If Size is negative, for instance -512, reads in that part of the file will fail with an error.
 3. Pattern is a BYTE value and is optional.  Default 0x00 is used but you can specify any value, for instance 0xFF etc.
@@ -33,4 +33,7 @@ Example 3 (an iso file is missing 100 blocks and hence all offsets are wrong, fi
 \\\\*\\.iso:2048000:0x00<br>
 c:\file.iso
 
+From IsoBuster 5.4 onwards it is also possible to select **a range inside a file, starting from a certain offset**
 
+The syntax is: \\#\(Offset,Range)c:\path\filename.ext
+Offset and Range are in bytes.  This way it is possible to target an embedded file or stitch together a virtual file made up from fragments of one or more files.

@@ -52,6 +52,6 @@ Example 6 (Don't skip anything but there is a range)
 
 Example 7 (Stitch 3 files together but skip their 512 byte headers)
 
-\\\\#\\(512)c:\\path\\1.ext
-\\\\#\\(512)c:\\path\\2.ext
+\\\\#\\(512)c:\\path\\1.ext<br>
+\\\\#\\(512)c:\\path\\2.ext<br>
 \\\\#\\(512)c:\\path\\3.ext

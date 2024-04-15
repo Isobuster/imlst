@@ -35,5 +35,23 @@ c:\file.iso
 
 From IsoBuster 5.4 onwards it is also possible to select **a range inside a file, starting from a certain offset**
 
-The syntax is: \\#\(Offset,Range)c:\path\filename.ext
-Offset and Range are in bytes.  This way it is possible to target an embedded file or stitch together a virtual file made up from fragments of one or more files.
+The syntax is: \\\\#\\(Offset,Range)c:\\path\\filename.ext
+1. Offset and Range are in bytes.  This way it is possible to target an embedded file or stitch together a virtual file made up from fragments of one or more files.
+
+Example 4 (Skip the first 512 bytes, the rest of the file is 1000 512-byte blocks)
+
+\\\\#\\(512,512000)c:\\path\\filename.ext
+
+Example 5 (Skip the first 512 bytes)
+
+\\\\#\\(512)c:\\path\\filename.ext
+
+Example 6 (Don't skip anything but there is a range)
+
+\\\\#\\(,512000)c:\\path\\filename.ext
+
+Example 7 (Stitch 3 files together but skip their 512 byte headers)
+
+\\\\#\\(512)c:\\path\\1.ext
+\\\\#\\(512)c:\\path\\2.ext
+\\\\#\\(512)c:\\path\\3.ext

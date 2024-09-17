@@ -1,4 +1,4 @@
-# imlst
+# *.imlst and filename magic
 
 *.imlst is a file extension, first developed for IsoBuster 5.2 and up.
 

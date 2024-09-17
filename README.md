@@ -113,7 +113,7 @@ and IsoBuster will find them and open them (in memory, without creating temporar
 
 Latter example can also exist in this form:
 
-c:\\path\\zipped_cue+iso.(.cue).ibzip
+c:\\path\\zipped_cue+iso.(..cue).ibzip
 
-When *.ibzip is associated with IsoBuster you can open it by simply double clicking the file.  If the filename syntax is *.(.ext).ibzip then IsoBuster will look for the first *.ext file inside the zip.
+When *.ibzip is associated with IsoBuster you can open it by simply double clicking the file.  If the filename syntax is *.(..ext).ibzip then IsoBuster will look for the first *.ext file inside the zip.
 The first dot (\.) inside the brackets is replaced by the wildcard asterix (\*).  If there is no leading dot (\.) the full name must match with a file inside the zip file.

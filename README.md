@@ -40,7 +40,7 @@ From IsoBuster 5.3 onwards there is also support for a **virtual file**.  A way 
 
 <h4>Example</h4> 
 
-*an iso file is missing 100 blocks and hence all offsets are wrong, fix this by preceding it with a virtual file containing all zeroes*
+*An iso file is missing its first 100 (2048-byte sized) blocks and hence all offsets are wrong, fix this by preceding it with a virtual file containing all zeroes*
 
 \\\\*\\.iso:2048000:0x00<br>
 c:\file.iso

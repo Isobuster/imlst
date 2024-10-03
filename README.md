@@ -117,3 +117,159 @@ c:\\path\\zipped_cue+iso.(..cue).ibzip
 
 When *.ibzip is associated with IsoBuster you can open it by simply double clicking the file.  If the filename syntax is *.(..ext).ibzip then IsoBuster will look for the first *.ext file inside the zip.
 The first dot (\.) inside the brackets is replaced by the wildcard asterix (\*).  If there is no leading dot (\.) the full name must match with a file inside the zip file.
+
+<h2>Image file as generic image file</h2>
+
+From IsoBuster 5.5 onwards it is also possible to use Image files in a multi-filename, to be treated like normal files.<br>
+The syntax is: \\\\#\\img(*Offset,BlockSize,Size*)c:\\path\\filename.ext<br>
+Offset, BlockSize and Size are in bytes, and they are optional.  Preferably let IsoBuster detect these values by itself.<br>
+Size is determined by the Image File format but that can be overruled by this value.<br>
+At first sight there doesn't seem to be much use for that.  Let me try to explain with a useless example:
+
+<h4>Example</h4> 
+
+\\\\#\\img()c:\\path\\image.vdi
+
+*This tells IsoBuster to load and interpret the \*.vdi file, next wrap it in a normal file and feed that to the generic image file interpreter.*
+*The net effect will be the same as simply loading the \*.vdi directly, without the \\\\#\img() prefix*
+
+However, imagine you have an image file per partition, very much like CloneZilla does for instance, then you need to be able to chain those together into one filename, so that IsoBuster can load the entire disk image with access to all partitions:
+
+<h4>Example</h4> 
+
+\\\\#\\img()c:\\path\\gpt.img<br>
+\\\\#\\img()c:\\path\\sdc1.dd<br>
+\\\\#\\img()c:\\path\\sdc2.partclone.ptcl.gz<br>
+\\\\#\\img()\\\\#\\gz()c:\\path\\sdc3.ntfsclone.img<br>
+
+*In above example all (expanded / interpreted) file sizes fully match up with the partition map in the MBR/GPT*
+*In above example, the last file is a GZipped file, but the extension doesn't reveal it, so use prefix \\\\#\\gz() to let IsoBuster know*
+
+<h4>Example</h4> 
+
+*Assuming the first file (containing the partition map) is too small (as is mostly the case in CloneZilla for instance),*
+*you can add a virtual file that takes up that space, so that everything aligns properly:*
+
+\\\\#\\img()c:\\path\\gpt.img<br>
+\\*\Filler:1031168<br>
+\\\\#\\img()c:\\path\\sdc1.dd<br>
+..
+
+Or pass the expected size to the first file:
+
+<h4>Example</h4> 
+
+\\\\#\\img(,,1048576)c:\\path\\gpt.img<br>
+\\\\#\\img()c:\\path\\sdc1.dd<br>
+..
+
+Or tell IsoBuster (via Size value -1) to explicitely use the MBR/GPT to determine the size:
+
+<h4>Example</h4> 
+
+\\\\#\\img(,,-1)c:\\path\\gpt.img<br>
+\\\\#\\img()c:\\path\\sdc1.dd<br>
+..
+
+<h2>Several parts of a (sub)file</h2>
+
+A \*.imlst file acts as a shortcut and it is merely an easier way to provide a multi-filename to IsoBuster.
+The same can still be achieved by passing the multi-filename via the command line.
+
+A file on every line translates to one single line with those files seperated by the "|" character.
+
+<h4>Example</h4> 
+
+c:\image file 1.dsk<br>
+c:\image file 2.any
+
+*Translates to:*
+
+c:\image file 1.dsk|c:\image file 2.any
+
+*In fact, that single line in a \*.imlst file would work just the same, it just doesn't improve readability*
+
+As long as we're using 'normal' files any such combinations can be put in the \*.imlst file
+
+<h4>Example</h4> 
+
+image file 1.dsk.part01<br>
+image file 1.dsk.part02<br>
+image file 1.dsk.part03<br>
+image file 2.any
+
+Which is the same as:
+
+<h4>Example</h4> 
+
+image file 1.dsk.part01|image file 1.dsk.part02|image file 1.dsk.part03<br>
+image file 2.any
+
+The moment we deal with virtualized files (in particular on-the-fly decompression from \*.gz, \*.zip, or an image file: \\\\#\\img()) its subfiles need to be kept together.
+Assume following example (which will fail to work as expected):
+
+<h4>Example</h4> 
+
+\parts\image file 1.dsk.gz.001<br>
+\parts\image file 1.dsk.gz.002<br>
+\parts\image file 1.dsk.gz.003<br>
+image file 2.any
+
+*This will fail because the interpreter will load the first file as a gzip (and will offer transparent on the fly decompression from it) but the next file will be loaded as a regular file again, chained to the whole resulting file.*
+*In fact, the first file's auto-detection would load the \*.002 and \*.003 files automatically, to complete the gzip file, and next the regular (generic image) would still have these \*.002 and \*.003 files inside it as regular files as well*
+*To keep these subfiles together they need to have double "||" symbols between them.* 
+
+Following example **will** work:
+
+<h4>Example</h4> 
+
+\parts\image file 1.dsk.gz.001||\parts\image file 1.dsk.gz.002||\parts\image file 1.dsk.gz.003<br>
+image file 2.any
+
+In case of nested virtualized files, for instance multiple gzipped fileparts that make up an image file that is part of several image files, you need to double the symbol again to: "||||"
+As it is perfectly possible to pass a multi-filename to \\\\#\\img() that consists of a combination of files, some of which are zipped, others are not etc.
+
+<h4>Example</h4> 
+
+\\\\#\\img()\parts\image file 1.dsk.gz.001||||\parts\image file 1.dsk.gz.002||||\parts\image file 1.dsk.gz.003||SecondPart.img<br>
+c:\image file 2.any
+
+To improve readability, double "||" can be replaced by "|" again, by putting the content between "<>".  Following example is exactly the same, but it uses <>
+
+<h4>Example</h4> 
+
+\\\\#\\img()<<\parts\image file 1.dsk.gz.001|\parts\image file 1.dsk.gz.002|\parts\image file 1.dsk.gz.003>|SecondPart.img><br>
+c:\image file 2.any
+
+<h2>Nested *.imlst files</h2>
+
+From IsoBuster 5.5 onwards it is also possible to nest \*.imlst files
+
+<h4>Example</h4> 
+
+\\\\#\\img()<<\parts\image file 1.dsk.gz.001|\parts\image file 1.dsk.gz.002|\parts\image file 1.dsk.gz.003>|SecondPart.img><br>
+c:\image file 2.any
+
+Could also be:
+
+\\\\#\\img()<\parts\fileparts.imlst>||SecondPart.img<br>
+c:\image file 2.any
+
+<h4>Example</h4> 
+
+\clone\full-image.imlst
+
+<h4>Example</h4> 
+
+c:\clones\clone.2024.09.03.imlst
+
+<h2>Set a path</h2>
+
+From IsoBuster 5.5 onwards.  IsoBuster builds a path based on the location of the \*.imlst file **if** not a full path is provided.
+Instead of providing a full path for every individual file you can also set the \\\\path= variable to that path
+
+<h4>Example</h4> 
+
+\\\\path=c:\clones\
+
+clone.2024.09.03.imlst

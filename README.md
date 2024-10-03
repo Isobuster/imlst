@@ -210,10 +210,10 @@ Assume following example (which will fail to work as expected):
 
 <h4>Example</h4> 
 
-\parts\image file 1.dsk.gz.001<br>
-\parts\image file 1.dsk.gz.002<br>
-\parts\image file 1.dsk.gz.003<br>
-image file 2.any
+\parts\file.dsk.gz.001<br>
+\parts\file.dsk.gz.002<br>
+\parts\file.dsk.gz.003<br>
+file.dsk
 
 *This will fail because the interpreter will load the first file as a gzip (and will offer transparent on the fly decompression from it) but the next file will be loaded as a regular file again, chained to the whole resulting file.*
 *In fact, the first file's auto-detection would load the \*.002 and \*.003 files automatically, to complete the gzip file, and next the regular (generic image) would still have these \*.002 and \*.003 files inside it as regular files as well*
@@ -223,23 +223,23 @@ Following example **will** work:
 
 <h4>Example</h4> 
 
-\parts\image file 1.dsk.gz.001||\parts\image file 1.dsk.gz.002||\parts\image file 1.dsk.gz.003<br>
-image file 2.any
+\parts\file.dsk.gz.001||\parts\file.dsk.gz.002||\parts\file.dsk.gz.003<br>
+file.dsk
 
 In case of nested virtualized files, for instance multiple gzipped fileparts that make up an image file that is part of several image files, you need to double the symbol again to: "||||"
 As it is perfectly possible to pass a multi-filename to \\\\#\\img() that consists of a combination of files, some of which are zipped, others are not etc.
 
 <h4>Example</h4> 
 
-\\\\#\\img()\parts\image file 1.dsk.gz.001||||\parts\image file 1.dsk.gz.002||||\parts\image file 1.dsk.gz.003||SecondPart.img<br>
-c:\image file 2.any
+\\\\#\\img()\parts\part1.gz.001||\parts\part1.dsk.gz.002||\parts\part1.dsk.gz.003||part2.dsk<br>
+file.dsk
 
 To improve readability, double "||" can be replaced by "|" again, by putting the content between "<>".  Following example is exactly the same, but it uses <>
 
 <h4>Example</h4> 
 
-\\\\#\\img()<<\parts\image file 1.dsk.gz.001|\parts\image file 1.dsk.gz.002|\parts\image file 1.dsk.gz.003>|SecondPart.img><br>
-c:\image file 2.any
+\\\\#\\img()<<\parts\part1.gz.001||\parts\part1.dsk.gz.002||\parts\part1.dsk.gz.003>|part2.dsk><br>
+file.dsk
 
 <h2>Nested *.imlst files</h2>
 
@@ -247,13 +247,13 @@ From IsoBuster 5.5 onwards it is also possible to nest \*.imlst files
 
 <h4>Example</h4> 
 
-\\\\#\\img()<<\parts\image file 1.dsk.gz.001|\parts\image file 1.dsk.gz.002|\parts\image file 1.dsk.gz.003>|SecondPart.img><br>
-c:\image file 2.any
+\\\\#\\img()<<\parts\part1.gz.001||\parts\part1.dsk.gz.002||\parts\part1.dsk.gz.003>|part2.dsk><br>
+file.dsk
 
 Could also be:
 
-\\\\#\\img()<\parts\fileparts.imlst>||SecondPart.img<br>
-c:\image file 2.any
+\\\\#\\img()<<\parts\gzpart.imlst>|part2.dsk><br>
+file.dsk
 
 <h4>Example</h4> 
 

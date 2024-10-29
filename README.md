@@ -109,7 +109,7 @@ and IsoBuster will find them and open them (in memory, without creating temporar
 
 <h4>Example</h4> 
 
-\\\\#\\zip(*.cue)c:\\path\\zipped_cue+iso.zip
+\\\\#\\zip(\*.cue)c:\\path\\zipped_cue+iso.zip
 
 Latter example can also exist in this form:
 
@@ -117,6 +117,20 @@ c:\\path\\zipped_cue+iso.(..cue).ibzip
 
 When *.ibzip is associated with IsoBuster you can open it by simply double clicking the file.  If the filename syntax is *.(..ext).ibzip then IsoBuster will look for the first *.ext file inside the zip.
 The first dot (\.) inside the brackets is replaced by the wildcard asterix (\*).  If there is no leading dot (\.) the full name must match with a file inside the zip file.
+
+<h2>Help detect *.gz or *.bz2</h2>
+
+From IsoBuster 5.5 onwards it is also possible to help IsoBuster detect \*.gz or \*.bz2 files that don't have the proper extension (\*.gz or \*.bz2)
+
+If the file doesn't have an extension that helps IsoBuster detect the compression, you can use the proper prefix to let IsoBuster know
+
+<h4>Example</h4> 
+
+\\\\#\\gz()c:\\path\\gzip-compressed.bin
+
+<h4>Example</h4> 
+
+\\\\#\\bz2()c:\\path\\bzip-compressed.bin
 
 <h2>Image file as generic image file</h2>
 

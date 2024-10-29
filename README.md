@@ -306,3 +306,5 @@ Instead of providing a full path for every individual file you can also set the 
 
 clone.2024.09.03.imlst
 ```
+
+![Example of IsoBuster having loaded a *.mlst file that references several other files](Screenshots/test_6.png)

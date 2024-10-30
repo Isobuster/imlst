@@ -1,0 +1,9 @@
+// Opens a zip file and immediately targets the *.cue file 
+// Next the *.wav files (referenced from the *.cue) are automatically found as well (IsoBuster >= 5.5)
+
+// Advantages:
+// - *.zip can still be associated with a typical zip program (or your Windows OS itself)
+// - *.imlst on the other hand is associated with IsoBuster (and a double click on it opens the zip file in IsoBuster)
+
+
+\\#\zip(*.cue)Various Artists - The Matrix (Soundtrack).zip

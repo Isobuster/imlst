@@ -6,10 +6,10 @@
 
 Works on real files, virtual files, drives etc.
 
-It is a simple text file that contains a file or physical or logical drive per line.  Paths can be absolute or relative to the position of the *.imlst file iself.
-It's an alternative for providing all files/drives on the command line, like so: https://www.isobuster.com/help/open_spanned_files_and_drives and it follows the same logic, so best check out the link.
+It is a simple text file that contains a file or physical or logical drive per line.  Paths can be absolute or relative to the position of the \*.imlst file iself.
+It's an alternative to providing all files/drives [on the command line](https://www.isobuster.com/help/open_spanned_files_and_drives) as it follows the same logic, so best check out the link.
 
-This text and link serves as specification of the format. Other applications can use it as well, in the exact same way.  To improve sharing *.imlst files between applications, please stick to the same implementation or use a different file extension if you deviate from it.
+This text and link serves as specification of the format. Other applications can use it as well, in the exact same way.  To improve sharing \*.imlst files between applications, please stick to the same implementation or use a different file extension if you deviate from it.
 
 The extension of the first file in the list can be used by the application that loads it to determine what type file it is.
 
@@ -269,9 +269,18 @@ To improve readability, double "||" can be replaced by "|" again, by putting the
 \\#\img()<<\parts\part1.gz.001||\parts\part1.dsk.gz.002||\parts\part1.dsk.gz.003\>|part2.dsk>
 file.dsk
 ```
+<h2>Meta files</h2>
+
+Several types of meta files can be included<br>
+These meta files contain useful information that is parsed and used, but they are not part of the bigger concatenated file.
+
+- [imlst](https://github.com/Isobuster/imlst/blob/main/README.md#nested-imlst-files) files (see further) *(From IsoBuster 5.5 onwards)*
+- [ibpt](https://github.com/Isobuster/ibpt) files *(From IsoBuster 5.5 onwards)*
+
 <h2>Nested *.imlst files</h2>
 
-From IsoBuster 5.5 onwards it is also possible to nest \*.imlst files
+From IsoBuster 5.5 onwards it is also possible to nest \*.imlst files<br>
+Nested \*.imlst files are considered **meta** files in that they contain useful information that is parsed, but the \*.imlst files themselves are not part of the bigger concatenated file.
 
 <h4>Example</h4>
 

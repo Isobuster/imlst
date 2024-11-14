@@ -303,6 +303,38 @@ file.dsk
 ```
 c:\clones\clone.2024.09.03.imlst
 ```
+<h2>Show an Open File Dialog</h2>
+
+From IsoBuster 5.5 onwards it is possible to show a dialog that allows you to select a file.<br>
+In other words, the filename can be changed while the \*.imlst is being loaded<br>
+The syntax is: `\\#\ofd(Title, Filter, Options)c:\path\filename.ext`<br>
+Currently only option `m` is supported, which allows you to select more than 1 files *(use with caution as the order of files cannot be guaranteed)*
+
+<h4>Example</h4>
+
+*Triggers a dialog to select a file.  Only \*.img files will be shown, the path will be used*
+```
+\\#\ofd(Select an IMG file, *.img)c:\path\
+```
+<h4>Example</h4>
+
+*Triggers a dialog to select a file.  Only \v1\*.im? files in location 'path' will be shown*
+```
+\\#\ofd(Select a version 1 IMG file, *.img;*.imc)c:\path\v1*.im?
+```
+<h4>Example</h4>
+
+*Triggers a dialog to select (a) file(s).  Same as previous example, but several files can be selected<br>
+Notice the ')' as part of the title inside the brackets is escaped*
+```
+\\#\ofd(Select one or more version 1 IMG file(s\), *.img, m)c:\path\v1*.img
+```
+<h4>Example</h4>
+
+*Triggers a dialog to select a file in its simplest form (no title, filter defaults to \*.\*)*
+```
+\\#\ofd()
+```
 <h2>Set a path</h2>
 
 From IsoBuster 5.5 onwards.  IsoBuster builds a path based on the location of the \*.imlst file **if** not a full path is provided.
@@ -316,4 +348,4 @@ Instead of providing a full path for every individual file you can also set the 
 clone.2024.09.03.imlst
 ```
 
-![Example of IsoBuster having loaded a *.mlst file that references several other files](Screenshots/test_6.png)
+![Example of IsoBuster having loaded a *.imlst file that references several other files](Screenshots/test_6.png)

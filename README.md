@@ -138,7 +138,7 @@ If the file doesn't have an extension that helps IsoBuster detect the compressio
 <h2>Image file as generic image file</h2>
 
 From IsoBuster 5.5 onwards it is also possible to use Image files in a multi-filename, to be treated like normal files.<br>
-The syntax is: `\\#\img(*Offset, BlockSize, Size, Options*)c:\path\filename.ext`<br>
+The syntax is: `\\#\img(Offset, BlockSize, Size, Options)c:\path\filename.ext`<br>
 Offset, BlockSize and Size are in bytes, and they are optional.  Preferably let IsoBuster detect these values by itself.<br>
 Size is determined by the Image File format but it can be overruled by this value.<br>
 Currently only option `r` is supported, which means that reads from the image are then 'raw'

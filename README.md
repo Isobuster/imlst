@@ -141,8 +141,8 @@ From IsoBuster 5.5 onwards it is also possible to use Image files in a multi-fil
 The syntax is: `\\#\img(Offset, BlockSize, Size, Options)c:\path\filename.ext`<br>
 Offset, BlockSize and Size are in bytes, and they are optional.  Preferably let IsoBuster detect these values by itself.<br>
 Size is determined by the Image File format but it can be overruled by this value.<br>
-Currently only option `r` is supported, which means that reads from the image are then 'raw'
-At first sight there doesn't seem to be much use for that.  Let me try to explain with a useless example:
+Currently only option `r` is supported, which means that reads from the image are then 'raw'.<br>
+At first sight there doesn't seem to be much use for `\\#\img()`.  Let me try to explain with a useless example:
 
 <h4>Example</h4>
 

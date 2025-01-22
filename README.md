@@ -49,14 +49,17 @@ c:\file.iso
 
 From IsoBuster 5.4 onwards it is also possible to select **a range inside a file, starting from a certain offset**
 
-The syntax is: `\\#\(Offset,Range)c:\path\filename.ext`
-1. Offset and Range are in bytes.  This way it is possible to target an embedded file or stitch together a virtual file made up from fragments of one or more files.
+The syntax is somewhat confusing because it's not the actual range that is provided, rather the parts of the file that need to be ignored.
+All bytes inside the Header range and all bytes inside the Footer range are ignored.  The remaining data that sits in the middle makes up for the resulting file.
+
+The syntax is: `\\#\(Header,Footer)c:\path\filename.ext`
+1. Header and Footer are in bytes.  This way it is possible to target an embedded file (inside a bigger file) or stitch together a virtual file made up from fragments of several files.
 
 <h4>Example</h4> 
 
-*Skip the first 512 bytes, the rest of the file is 1000 512-byte blocks*
+*Skip the first 512 bytes of a file and ignore the last 512 bytes of a file*
 ```
-\\#\(512,512000)c:\path\filename.ext
+\\#\(512,512)c:\path\filename.ext
 ```
 <h4>Example</h4> 
 
@@ -66,7 +69,7 @@ The syntax is: `\\#\(Offset,Range)c:\path\filename.ext`
 ```
 <h4>Example</h4> 
 
-*Don't skip anything but there is a range*
+*Only ignore the last 512000 bytes of the file*
 ```
 \\#\(,512000)c:\path\filename.ext
 ```
@@ -95,9 +98,9 @@ The first range works on the unzipped content, the second range tells IsoBuster 
 ```
 <h4>Example</h4> 
 
-*target a zip file that happens to sit at offset 1000 inside a different file but only access 20 bytes at offset 10 inside the decompressed file*
+*target a zip file that happens to sit at offset 1000 inside a different file but ignore the first 20 bytes of the decompressed file*
 ```
-\\#\zip()\\#\(10,20)\\#\(1000)c:\path\file_with_zip_inside.bin
+\\#\zip()\\#\(20)\\#\(1000)c:\path\file_with_zip_inside.bin
 ```
 <h2>Target file in zip file</h2>
 
